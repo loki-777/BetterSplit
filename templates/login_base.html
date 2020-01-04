@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<meta name=”viewport” content=”width=device-width, initial-scale=1″>
+	<head>
+		<link rel="stylesheet" href={{ url_for('static', filename='styles.css') }}>
+		<link href="https://fonts.googleapis.com/css?family=Sue+Ellen+Francisco&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Cabin&display=swap" rel="stylesheet">
+		<title> ILSBB </title>
+		{% block head_forms %}
+		{% endblock %}
+	</head>
+	<body>
+		<div id="first_flex">
+			<div class="left">
+				<div class="logo">
+					ILSBB
+				</div>
+				<div class="summary_mini">
+					It's Like Splitwise, But Better.
+				</div>
+			</div>
+			<div class="right">
+				{% block body_forms %}
+				{% endblock %}
+			</div>
+		</div>
+	</body>
+</html>

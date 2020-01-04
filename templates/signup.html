@@ -1,0 +1,68 @@
+{% extends "login_base.html" %}
+{% block head_forms %}
+<form id="login_redir" class="loginpage_form" action="/login"></form>
+{% endblock %}
+{% block body_forms %}
+<form id="login_creds" class="loginpage_form" action="">
+	<div class="tfield_frame">
+		{% if 'name_empty' in error %}
+		<label class="tfield_label_error" for="name"> NAME </label>
+		{% else %}
+		<label class="tfield_label" for="name"> NAME </label>
+		{% endif %}
+		<br>
+		{% if 'name_empty' in error %}
+		<input class="tfield_error" type="text" name="name" value={{ request.form.name }}> 
+		<div class="errormessage"> {{ error.name_empty }} </div>
+		{% else %}
+		<input class="tfield" type="text" name="name" value={{ request.form.name }}>
+		{% endif %}
+		<br>
+	</div>
+	<div class="tfield_frame">
+		{% if 'user_taken' in error or 'username_empty' in error%}
+		<label class="tfield_label_error" for="username"> USERNAME </label>
+		{% else %}
+		<label class="tfield_label" for="username"> USERNAME </label>
+		{% endif %}
+		<br>
+		{% if 'user_taken' in error or 'username_empty' in error %}
+		<input class="tfield_error" type="text" name="username" value={{ request.form.username }}> 
+			{% if 'username_empty' in error %}
+			<div class="errormessage"> {{ error.username_empty }} </div>
+			{% else %}
+			<div class="errormessage"> {{ error.user_taken }} </div>
+			{% endif %}
+		{% else %}
+		<input class="tfield" type="text" name="username" value={{ request.form.username }}>
+		{% endif %}
+		<br>
+	</div>
+	<div class="tfield_frame">
+		{% if 'weak_pass' in error or 'pass_empty' in error %}
+		<label class="tfield_label_error" for="password"> PASSWORD </label>
+		{% else %}
+		<label class="tfield_label" for="password"> PASSWORD </label>
+		{% endif %}
+		<br>
+		{% if 'weak_pass' in error or 'pass_empty' in error %}
+		<input class="tfield_error" type="password" name="password" value={{ request.form.password }}>
+			{% if 'passempty' in error %}
+			<div class="errormessage"> {{ error.pass_empty }} </div>
+			{% else %}
+			<div class="errormessage"> {{ error.weak_pass }} </div>
+			{% endif %}
+		{% else %}
+		<input class="tfield" type="password" name="password" value={{ request.form.password }}>
+		{% endif %}
+		<br>
+	</div>
+	<div class="tfield_frame">
+		<div class="button_container">
+			<button id="login" class="loginpage_button" type="submit" form="login_creds" formmethod="post"> GO! </button>
+			<br>
+			<button id="signup" class="loginpage_button" type="submit" form="login_redir"> < Back to Login </button>
+		</div>
+	</div>
+</form>
+{% endblock %}
