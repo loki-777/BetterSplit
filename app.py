@@ -7,7 +7,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '45w1n15G4Y'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://///mnt/ext/ilsbb/ilsbb.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ilsbb.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
@@ -18,20 +18,20 @@ class User(db.Model):
 	username = db.Column(db.String(50), unique = True)
 	password = db.Column(db.String(100))
 
-class Transaction(db.Model):
-	id = db.Column(db.Integer, primary_key = True)
-	paid_by = db.Column(db.String(50))
-	paid_to = db.Column(db.String(50))
-	amount = db.Column(db.Float)
-	remark = db.Column(db.String(500))
-	timestamp = db.DateTime(datetime.now)
-
 class Dues(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	username = db.Column(db.String(50))
 	plus = db.Column(db.Float)
 	minus = db.Column(db.Float)
 	net = db.Column(db.Float)
+
+class Transactions(db.Model):
+	id = db.Column(db.Integer, primary_key = True)
+	paid_by = db.Column(db.String(50))
+	paid_to = db.Column(db.String(50))
+	amount = db.Column(db.Float)
+	remark = db.Column(db.String(500))
+	timestamp = db.DateTime(datetime.now)
 
 # Checks whether username exists in database, if yes checks the entered password
 def authenticate(username, password):
