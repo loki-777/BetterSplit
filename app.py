@@ -12,6 +12,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+# TODO: Modularize this program into several components
+
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	name = db.Column(db.String(50))
@@ -23,7 +25,6 @@ class Dues(db.Model):
 	username = db.Column(db.String(50))
 	plus = db.Column(db.Float)
 	minus = db.Column(db.Float)
-	net = db.Column(db.Float)
 
 class Transactions(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -31,7 +32,7 @@ class Transactions(db.Model):
 	paid_to = db.Column(db.String(50))
 	amount = db.Column(db.Float)
 	remark = db.Column(db.String(500))
-	timestamp = db.DateTime(datetime.now)
+	timestamp = db.Column(db.DateTime, default=datetime.now)
 
 # Checks whether username exists in database, if yes checks the entered password
 def authenticate(username, password):
@@ -57,10 +58,26 @@ def pass_strength_validator(password):
 		return False
 
 # Inserts new user into database
-def new(name, username, password):
+def add_user(name, username, password):
 	hashed = generate_password_hash(password)
 	new_user = User(name = name, username = username, password = hashed)
+	init_debt = Dues(username = username, plus = 0, minus = 0)
 	db.session.add(new_user)
+	db.session.add(init_debt)
+	db.session.commit()
+
+# Inserts new transaction into database
+def add_transaction(paid_to, amount, remark):
+	new_transaction = Transactions(paid_by = session['user'], paid_to = paid_to, amount = amount, remark = remark)	
+	db.session.add(new_transaction)
+	db.session.commit()
+
+# Updates account
+def update_account(paid_to, amount):
+	sender = Dues.query.filter_by(username = session['user']).first()
+	recipient = Dues.query.filter_by(username = paid_to).first()
+	sender.minus += float(amount)
+	recipient.plus += float(amount)
 	db.session.commit()
 
 # Home page automatically redirects to login if no user is logged in currently, or to profile is session is active 
@@ -71,14 +88,61 @@ def home():
 	else:
 		return redirect('/profile')
 
-# TODO: User landing page
-@app.route('/profile')
+# TODO: Styles for user landing page
+@app.route('/profile', methods=['GET', 'POST'])
 def user_landing():
+	error = {}
+	recent_tranlist = []
+	userslist = []
+	if 'paid' not in session:
+		session['paid'] = False
 	if 'user' not in session:
 		return redirect('/login')
-	return render_template('profile.html', name=session['name'])
+	if session['paid']:
+		return redirect('/paid')
+	elif request.method == 'POST':
+		if request.form['amount'] == '':
+			error['empty_amount'] = 'Enter amount!'
+		if request.form['pay_to'] == 'none':
+			error['empty_payee'] = 'Choose payee!'
+		# TODO: Fix remark error if made mandatory 
+		if request.form['remark'] == '':
+			error['empty_remark'] = 'Enter remark!'
+		if not error:
+			add_transaction(request.form['pay_to'], request.form['amount'], request.form['remark'])
+			update_account(request.form['pay_to'], request.form['amount'])
+			session['paid'] = True
+	
+	# TODO: Devise a more efficient algorithm to sort this list in descending order of id
+	by_list = list(Transactions.query.filter_by(paid_by = session['user']))
+	to_list = list(Transactions.query.filter_by(paid_to = session['user']))
+	by_list.reverse()
+	to_list.reverse()
+	recent_tranlist = by_list + to_list
+	def return_id(val):
+		return val.id
+	recent_tranlist.sort(key = return_id, reverse=True)
+	i = int(0)
+	recent_transactions = []
+	for tran in recent_tranlist:
+		if i < 10:
+			recent_transactions.append(tran)
+			i += 1
+		else:
+			break
+	for tran in recent_transactions:
+		tran.paid_by = User.query.filter_by(username = tran.paid_by).first().name
+		tran.paid_to = User.query.filter_by(username = tran.paid_to).first().name
+	userslist = User.query
+	return render_template('profile.html', name=session['name'], recent_transactions=recent_transactions, userbase=userslist, error=error)
 
-# Stylize login page
+# Intermediate redirect to reset session variable
+@app.route('/paid', methods=['GET'])
+def paid():
+	session['paid'] = False
+	return redirect('/profile')
+
+# Login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	error = {}
@@ -119,7 +183,7 @@ def signup():
 		if pass_strength_validator(request.form['password']):
 			error['weak_pass'] = 'Password is too short!'
 		if not error:
-			new(request.form['name'], request.form['username'], request.form['password'])
+			add_user(request.form['name'], request.form['username'], request.form['password'])
 			session['user'] = request.form['username']
 			session['name'] = request.form['name']
 			return redirect('/profile')

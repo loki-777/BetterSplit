@@ -31,14 +31,14 @@
 		{% endif %}
 		<br>
 		{% if 'pass_empty' in error or 'auth_fail' in error %}
-		<input class="tfield_error" type="password" name="password" value={{ request.form.password}}>
+		<input class="tfield_error" type="password" name="password" value={{ request.form.password }}>
 			{% if 'pass_empty' in error %}
 			<div class="errormessage"> {{ error.pass_empty }} </div>
 			{% else %}
 			<div class="errormessage"> {{ error.auth_fail }} </div>
 			{% endif %}
 		{% else %}
-		<input class="tfield" type="password" name="password" value={{ request.form.password}}>
+		<input class="tfield" type="password" name="password" value={{ request.form.password }}>
 		{% endif %}
 		<br>
 	</div>

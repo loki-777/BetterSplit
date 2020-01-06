@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<!-- TODO: Add animations everywhere -->
+<!-- TODO: Implement logout button -->
 <html>
 	<meta name=”viewport” content=”width=device-width, initial-scale=1″>
 	<head>
@@ -7,6 +9,89 @@
 		</title>
 	</head>
 	<body>
-		<h2> Hello, {{ name }}! </h2>
+		<h2> Hello, {{ name }}! </h2> <br>
+		<div id="month_and_dues" class="tile">
+
+		</div>
+		<div class="actions_flex">
+			<div id="recent" class="tile">
+				<div id="recent_title" class="top_title">
+					RECENT
+				</div>
+				<div class="recent_container">
+					<table>
+						{% for transaction in recent_transactions %}
+						<tr>
+							{% if transaction.paid_by == session['name'] %}
+							<td>
+								{{ transaction.paid_to }}								
+							</td>
+							<td>
+								{{ '-₹' }}
+								{{ transaction.amount }}
+							</td>
+							<td>
+								{{ transaction.timestamp.strftime("%H:%M") }}
+							</td>
+							<td>
+								{{ transaction.timestamp.strftime("%d %b") }}
+							</td>
+							{% else %}
+							<td>
+								{{ transaction.paid_by }}
+							</td>
+							<td>
+								{{ '+₹' }}
+								{{ transaction.amount }}
+							</td>
+							<td>
+								{{ transaction.timestamp.strftime("%H:%M") }}
+							</td>
+							<td>
+								{{ transaction.timestamp.strftime("%d %b") }}
+							</td>
+							{% endif %}
+						</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+			<div id="pay" class="tile">
+				<div id="pay_title" class="top_title">
+					PAY
+				</div>
+				<div class="pay_container">
+					<form id="pay_amt_usr" action="">
+						{% if 'empty_amount' in error %}
+							{{ error.empty_amount }}
+						{% endif %}
+						{% if 'empty_payee' in error %} 
+						<input class="main_tfield" type="number" name="amount" value={{ request.form.amount }}>
+						{% else %}
+						<input class="main_tfield" type="number" name="amount">
+						{% endif %}
+						<br> TO <br>
+						{% if 'empty_payee' in error %}
+							{{ error.empty_payee }}
+						{% endif %}
+						<select name="pay_to">
+							<option value="none" selected> 
+							</option> 
+							{% for account in userbase %}
+								{% if account.username != session['user'] %}
+								<option value={{ account.username }}> {{ account.name }} </option>
+								{% endif %}
+							{% endfor %}
+						</select>
+						<br> REMARK <br>
+						{% if 'empty_remark' in error %}
+							{{ error.empty_remark }}
+						{% endif %}
+						<textarea class="main_tfield" cols="40" rows="5" name="remark"> </textarea>
+					</form>
+					<button id="pay_confirm" class="main_button" type="submit" form="pay_amt_usr" formmethod="post"> CONFIRM </button>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
