@@ -25,6 +25,7 @@ class Dues(db.Model):
 	username = db.Column(db.String(50))
 	plus = db.Column(db.Float)
 	minus = db.Column(db.Float)
+	net = db.Column(db.Float)
 
 class Transactions(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -77,7 +78,9 @@ def update_account(paid_to, amount):
 	sender = Dues.query.filter_by(username = session['user']).first()
 	recipient = Dues.query.filter_by(username = paid_to).first()
 	sender.minus += float(amount)
+	sender.net = sender.plus - sender.minus
 	recipient.plus += float(amount)
+	recipient.net = recipient.plus - recipient.minus
 	db.session.commit()
 
 # Home page automatically redirects to login if no user is logged in currently, or to profile is session is active 
