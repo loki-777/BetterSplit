@@ -12,14 +12,14 @@
 		{% endif %}
 		<br>
 		{% if 'username_empty' in error or 'user_dne' in error %}
-		<input class="tfield_error" type="text" name="username" value={{ request.form.username }}>
+		<input class="tfield_error" type="text" name="username" autocomplete="off" value={{ request.form.username }}>
 		{% if 'username_empty' in error %}
 			<div class="errormessage"> {{ error.username_empty }} </div>
 			{% else %}
 			<div class="errormessage"> {{ error.user_dne }} </div>
 			{% endif %}
 		{% else %}
-		<input class="tfield" type="text" name="username" value={{ request.form.username }}>
+		<input class="tfield" type="text" name="username" autocomplete="off" value={{ request.form.username }}>
 		{% endif %}
 		<br>
 	</div>
