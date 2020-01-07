@@ -25,6 +25,7 @@ class Dues(db.Model):
 	username = db.Column(db.String(50))
 	plus = db.Column(db.Float)
 	minus = db.Column(db.Float)
+	net = db.Column(db.Float)
 
 class Transactions(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -77,7 +78,9 @@ def update_account(paid_to, amount):
 	sender = Dues.query.filter_by(username = session['user']).first()
 	recipient = Dues.query.filter_by(username = paid_to).first()
 	sender.minus += float(amount)
+	sender.net = sender.plus - sender.minus
 	recipient.plus += float(amount)
+	recipient.net = recipient.plus - recipient.minus
 	db.session.commit()
 
 # Home page automatically redirects to login if no user is logged in currently, or to profile is session is active 
@@ -101,7 +104,7 @@ def user_landing():
 	if session['paid']:
 		return redirect('/paid')
 	elif request.method == 'POST':
-		if request.form['amount'] == '':
+		if request.form['amount'] == '' or float(request.form['amount']) == 0:
 			error['empty_amount'] = 'Enter amount!'
 		if request.form['pay_to'] == 'none':
 			error['empty_payee'] = 'Choose payee!'
@@ -109,8 +112,9 @@ def user_landing():
 		if request.form['remark'] == '':
 			error['empty_remark'] = 'Enter remark!'
 		if not error:
-			add_transaction(request.form['pay_to'], request.form['amount'], request.form['remark'])
-			update_account(request.form['pay_to'], request.form['amount'])
+			amount_abs = abs(float(request.form['amount']))
+			add_transaction(request.form['pay_to'], amount_abs, request.form['remark'])
+			update_account(request.form['pay_to'], amount_abs)
 			session['paid'] = True
 	
 	# TODO: Devise a more efficient algorithm to sort this list in descending order of id
@@ -141,6 +145,32 @@ def user_landing():
 def paid():
 	session['paid'] = False
 	return redirect('/profile')
+
+# Settle data
+@app.route('/settle')
+def settle():
+	amount = float(0)
+	username = ''
+	due_table = list(Dues.query)
+	due_nonzero_list = []
+	for item in due_table:
+		if item.net != 0:
+			due_nonzero_list.append(item)
+	due_nonzero_list.sort(key = lambda x: x.net)
+	i = int(0)
+	prev_name = ''
+	prev_amt = float(0)
+	dict_pay_pair = {}
+	for item in due_nonzero_list:
+		if i != 0:
+			dict_pay_pair[prev_name] = (item.username, prev_amt)
+		prev_name = item.username
+		prev_amt = item.net
+		i += 1
+	if session['user'] in dict_pay_pair.keys():
+		username = dict_pay_pair[session['user']][0]
+		amount = abs(dict_pay_pair[session['user']][1])
+	return render_template('settle.html', amount = amount, username = username)
 
 # Login page
 @app.route('/login', methods=['GET', 'POST'])
