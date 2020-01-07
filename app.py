@@ -104,7 +104,7 @@ def user_landing():
 	if session['paid']:
 		return redirect('/paid')
 	elif request.method == 'POST':
-		if request.form['amount'] == '':
+		if request.form['amount'] == '' or float(request.form['amount']) == 0:
 			error['empty_amount'] = 'Enter amount!'
 		if request.form['pay_to'] == 'none':
 			error['empty_payee'] = 'Choose payee!'
@@ -112,8 +112,9 @@ def user_landing():
 		if request.form['remark'] == '':
 			error['empty_remark'] = 'Enter remark!'
 		if not error:
-			add_transaction(request.form['pay_to'], request.form['amount'], request.form['remark'])
-			update_account(request.form['pay_to'], request.form['amount'])
+			amount_abs = abs(float(request.form['amount']))
+			add_transaction(request.form['pay_to'], amount_abs, request.form['remark'])
+			update_account(request.form['pay_to'], amount_abs)
 			session['paid'] = True
 	
 	# TODO: Devise a more efficient algorithm to sort this list in descending order of id
