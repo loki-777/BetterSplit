@@ -145,6 +145,32 @@ def paid():
 	session['paid'] = False
 	return redirect('/profile')
 
+# Settle data
+@app.route('/settle')
+def settle():
+	amount = float(0)
+	username = ''
+	due_table = list(Dues.query)
+	due_nonzero_list = []
+	for item in due_table:
+		if item.net != 0:
+			due_nonzero_list.append(item)
+	due_nonzero_list.sort(key = lambda x: x.net)
+	i = int(0)
+	prev_name = ''
+	prev_amt = float(0)
+	dict_pay_pair = {}
+	for item in due_nonzero_list:
+		if i != 0:
+			dict_pay_pair[prev_name] = (item.username, prev_amt)
+		prev_name = item.username
+		prev_amt = item.net
+		i += 1
+	if session['user'] in dict_pay_pair.keys():
+		username = dict_pay_pair[session['user']][0]
+		amount = abs(dict_pay_pair[session['user']][1])
+	return render_template('settle.html', amount = amount, username = username)
+
 # Login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
