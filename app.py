@@ -62,7 +62,7 @@ def pass_strength_validator(password):
 def add_user(name, username, password):
 	hashed = generate_password_hash(password)
 	new_user = User(name = name, username = username, password = hashed)
-	init_debt = Dues(username = username, plus = 0, minus = 0)
+	init_debt = Dues(username = username, plus = 0, minus = 0, net = 0)
 	db.session.add(new_user)
 	db.session.add(init_debt)
 	db.session.commit()
@@ -154,7 +154,7 @@ def settle():
 	due_table = list(Dues.query)
 	due_nonzero_list = []
 	for item in due_table:
-		if item.net != 0:
+		if item.net != 0 and item.net != None:
 			due_nonzero_list.append(item)
 	due_nonzero_list.sort(key = lambda x: x.net)
 	i = int(0)
@@ -171,6 +171,12 @@ def settle():
 		username = dict_pay_pair[session['user']][0]
 		amount = abs(dict_pay_pair[session['user']][1])
 	return render_template('settle.html', amount = amount, username = username)
+
+# Logout page
+@app.route('/logout')
+def logout():
+	session.clear()
+	return redirect('/login')
 
 # Login page
 @app.route('/login', methods=['GET', 'POST'])
