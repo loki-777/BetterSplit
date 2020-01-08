@@ -165,7 +165,7 @@ def settle():
 		if i != 0:
 			dict_pay_pair[prev_name] = (item.username, prev_amt)
 		prev_name = item.username
-		prev_amt = item.net
+		prev_amt += float(item.net)
 		i += 1
 	if session['user'] in dict_pay_pair.keys():
 		username = dict_pay_pair[session['user']][0]
