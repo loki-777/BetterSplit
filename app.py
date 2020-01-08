@@ -172,6 +172,12 @@ def settle():
 		amount = abs(dict_pay_pair[session['user']][1])
 	return render_template('settle.html', amount = amount, username = username)
 
+# Logout page
+@app.route('/logout')
+def logout():
+	session.clear()
+	return redirect('/login')
+
 # Login page
 @app.route('/login', methods=['GET', 'POST'])
 def login():
