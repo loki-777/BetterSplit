@@ -138,7 +138,10 @@ def user_landing():
 		tran.paid_by = User.query.filter_by(username = tran.paid_by).first().name
 		tran.paid_to = User.query.filter_by(username = tran.paid_to).first().name
 	userslist = User.query
-	return render_template('profile.html', name=session['name'], recent_transactions=recent_transactions, userbase=userslist, error=error)
+	if session['paid']:
+		return redirect('/paid')
+	else:
+		return render_template('profile.html', name=session['name'], recent_transactions=recent_transactions, userbase=userslist, error=error)
 
 # Intermediate redirect to reset session variable
 @app.route('/paid', methods=['GET'])
