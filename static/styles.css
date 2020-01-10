@@ -1,0 +1,57 @@
+html, body {
+    background-color: #F5F5F5;
+    margin: 0;
+    padding: 0;
+}
+.main_flex {
+    height: 100vh;
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: 100vh;
+    width: 49vw;
+    min-width: 340px;
+}
+.right {
+    box-sizing: border-box;
+    height: 100vh;
+    width: 49vw;
+}
+.logo {
+    height: 16vh;
+    width: 50vw;
+    min-height: 100px;
+    min-width: 340px;
+}
+.summary_flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    text-align: center;
+}
+.summary {
+    display: inline-flexbox;
+    font-family: 'Cabin';
+    font-style: normal;
+    font-weight: normal;
+    font-size: calc(16px + 0.75vw);
+    letter-spacing: -0.02em;
+    margin: auto;
+}
+.dark {
+    color: #000000;
+}
+.light {
+    color: #AAAAAA;
+}

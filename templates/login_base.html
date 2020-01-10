@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-	<meta name=”viewport” content=”width=device-width, initial-scale=1″>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<head>
 		<link rel="stylesheet" href={{ url_for('static', filename='styles.css') }}>
-		<link href="https://fonts.googleapis.com/css?family=Sue+Ellen+Francisco&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Cabin&display=swap" rel="stylesheet">
 		<title> ILSBB </title>
@@ -11,13 +10,13 @@
 		{% endblock %}
 	</head>
 	<body>
-		<div id="first_flex">
+		<div class="main_flex">
 			<div class="left">
-				<div class="logo">
-					ILSBB
-				</div>
-				<div class="summary_mini">
-					It's Like Splitwise, But Better.
+				<img class="logo" src="/static/logo_color.svg" align="middle">
+				</img>
+				<div class="summary_flex">
+					<span class="summary dark"> Don't let your friends steal your money&nbsp;</span>
+					<span class="summary light"> like we steal ideas. </span>
 				</div>
 			</div>
 			<div class="right">
