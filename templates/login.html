@@ -12,7 +12,7 @@
 		{% endif %}
 		<br>
 		{% if 'username_empty' in error or 'user_dne' in error %}
-		<input class="tfield error" type="text" name="username" autocomplete="off" value={{ request.form.username }}>
+		<input class="tfield error_field" type="text" name="username" autocomplete="off" value={{ request.form.username }}>
 		{% if 'username_empty' in error %}
 			<div class="errormessage"> {{ error.username_empty }} </div>
 			{% else %}
@@ -31,7 +31,7 @@
 		{% endif %}
 		<br>
 		{% if 'pass_empty' in error or 'auth_fail' in error %}
-		<input class="tfield error" type="password" name="password" value={{ request.form.password }}>
+		<input class="tfield error_field" type="password" name="password" value={{ request.form.password }}>
 			{% if 'pass_empty' in error %}
 			<div class="errormessage"> {{ error.pass_empty }} </div>
 			{% else %}
