@@ -194,6 +194,34 @@ html, body {
     outline: none;
     border: none;
 }
+
 button {
     cursor: pointer;
+}
+
+@media only screen and (orientation: portrait) {
+    .main_flex {
+        flex-direction: column;
+    }
+    .left {
+        height: 37vh;
+        width: 100vw;
+    }
+    .right {
+        height: 61vh;
+        width: 100vw;
+    }
+    .summary_flex {
+        padding-top: 0px;
+    }
+    #login_creds {
+        height: 47vh;
+    }
+    #signup_creds {
+        height: 59vh;
+    }
+    .loginpage_form {
+        width: 80vw;
+        min-width: 200px;
+    }
 }
