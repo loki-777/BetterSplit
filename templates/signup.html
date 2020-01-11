@@ -14,7 +14,7 @@
 		{% endif %}
 		<br>
 		{% if 'name_empty' in error %}
-		<input class="tfield error" type="text" name="name" autocomplete="off" value={{ request.form.name }}> 
+		<input class="tfield error_field" type="text" name="name" autocomplete="off" value={{ request.form.name }}> 
 		<div class="errormessage"> {{ error.name_empty }} </div>
 		{% else %}
 		<input class="tfield" type="text" name="name" autocomplete="off" value={{ request.form.name }}>
@@ -29,7 +29,7 @@
 		{% endif %}
 		<br>
 		{% if 'user_taken' in error or 'username_empty' in error %}
-		<input class="tfield error" type="text" name="username" autocomplete="off" value={{ request.form.username }}> 
+		<input class="tfield error_field" type="text" name="username" autocomplete="off" value={{ request.form.username }}> 
 			{% if 'username_empty' in error %}
 			<div class="errormessage"> {{ error.username_empty }} </div>
 			{% else %}
@@ -48,7 +48,7 @@
 		{% endif %}
 		<br>
 		{% if 'weak_pass' in error or 'pass_empty' in error %}
-		<input class="tfield error" type="password" name="password" value={{ request.form.password }}>
+		<input class="tfield error_field" type="password" name="password" value={{ request.form.password }}>
 			{% if 'passempty' in error %}
 			<div class="errormessage"> {{ error.pass_empty }} </div>
 			{% else %}

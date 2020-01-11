@@ -225,3 +225,15 @@ button {
         min-width: 200px;
     }
 }
+.error {
+	color: rgb(244, 67, 54);
+}
+.error_field {
+    box-shadow: 0px 0px 6px rgba(244, 67, 54, 0.5);
+}
+.errormessage{
+    color: rgb(244, 67, 54);
+    text-align: right;
+    padding-top: 5px;
+    font-family: 'Montserrat';
+}
