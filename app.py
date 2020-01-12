@@ -138,10 +138,19 @@ def user_landing():
 		tran.paid_by = User.query.filter_by(username = tran.paid_by).first().name
 		tran.paid_to = User.query.filter_by(username = tran.paid_to).first().name
 	userslist = User.query
+	duec = Dues.query.filter_by(username = session['user']).first()
+	if float(duec.plus) > 99999.9:
+		duec.plus=float(99999.9)
+	if float(duec.net) > 99999.9:
+		duec.net=float(99999.9)
+	if float(duec.net) < -99999.9:
+		duec.net=float(99999.9)
+	if float(duec.minus) > 99999.9:
+		duec.minus=float(99999.9)
 	if session['paid']:
 		return redirect('/paid')
 	else:
-		return render_template('profile.html', name=session['name'], recent_transactions=recent_transactions, userbase=userslist, error=error)
+		return render_template('profile.html', name=session['name'], recent_transactions=recent_transactions, userbase=userslist, error=error, duec = duec)
 
 # Intermediate redirect to reset session variable
 @app.route('/paid', methods=['GET'])
