@@ -6,20 +6,44 @@
 <div id="signup-card" class="neo-box">
     <form method="POST">
         <p>
-            {{ form.name.label(class='tfield-label') }} <br>
-            {{ form.name(class='tfield neo-inset', autocomplete='off') }}
+            {% if 'name' in errors %}
+                {{ form.name.label(class='tfield-label error-fg') }} <br>
+                {{ form.name(class='tfield neo-inset error-bg', autocomplete='off') }}
+                <div class="error-msg error-fg"> {{ errors['name'] }} </div>
+            {% else %}
+                {{ form.name.label(class='tfield-label') }} <br>
+                {{ form.name(class='tfield neo-inset', autocomplete='off') }}
+            {% endif %}
         </p>
         <p>
-            {{ form.username.label(class='tfield-label') }} <br>
-            {{ form.username(class='tfield neo-inset', autocomplete='off') }}
+            {% if 'username' in errors %}
+                {{ form.username.label(class='tfield-label error-fg') }} <br>
+                {{ form.username(class='tfield neo-inset error-bg', autocomplete='off') }}
+                <div class="error-msg error-fg"> {{ errors['username'] }} </div>
+            {% else %}
+                {{ form.username.label(class='tfield-label') }} <br>
+                {{ form.username(class='tfield neo-inset', autocomplete='off') }}
+            {% endif %}
         </p>
         <p>
-            {{ form.password.label(class='tfield-label') }} <br>
-            {{ form.password(class='tfield neo-inset', autocomplete='off') }}
+            {% if 'password' in errors %}
+                {{ form.password.label(class='tfield-label error-fg') }} <br>
+                {{ form.password(class='tfield neo-inset error-bg', autocomplete='off') }}
+                <div class="error-msg error-fg"> {{ errors['password'] }} </div>
+            {% else %}
+                {{ form.password.label(class='tfield-label') }} <br>
+                {{ form.password(class='tfield neo-inset', autocomplete='off') }}
+            {% endif %}
         </p>
         <p>
-            {{ form.phone.label(class='tfield-label') }} <br>
-            {{ form.phone(class='tfield neo-inset', autocomplete='off') }}
+            {% if 'phone' in errors %}
+                {{ form.phone.label(class='tfield-label error-fg') }} <br>
+                {{ form.phone(class='tfield neo-inset error-bg', autocomplete='off') }}
+                <div class="error-msg error-fg"> {{ errors['phone'] }} </div>
+            {% else %}
+                {{ form.phone.label(class='tfield-label') }} <br>
+                {{ form.phone(class='tfield neo-inset', autocomplete='off') }}
+            {% endif %}
         </p>
         <div class="tfield-label">
             PAYMENT OPTIONS

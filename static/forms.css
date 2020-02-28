@@ -39,8 +39,11 @@ input:focus, textarea:focus, select:focus{
     justify-content: center;
     align-items: center;
     max-width: 320px;
-    max-height: 360px;
-    width: 80vw;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    overflow: hidden;
 }
 
 #signup-card {
@@ -48,15 +51,18 @@ input:focus, textarea:focus, select:focus{
     justify-content: center;
     align-items: center;
     max-width: 320px;
-    max-height: 720px;
-    width: 80vw;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    overflow: hidden;
 }
 
 .tfield {
     border: none;
     border-radius: 6px;
     min-height: 45px;
-    min-width: 250px;
+    max-width: 300px;
     padding-left: 10px;
     font-size: 20px;
 }
@@ -67,6 +73,21 @@ input:focus, textarea:focus, select:focus{
     color: #888888;
     margin-bottom: -1px;
     margin-top: 10px;
+}
+
+.error-msg {
+    font-size: 14px;
+    font-weight: 700;
+    text-align: right;
+    margin-top: -10px;
+}
+
+.error-fg {
+    color: rgb(226, 32, 32);
+}
+
+.error-bg {
+    border: 1.2px dashed rgb(226, 32, 32);
 }
 
 .btncontainer {
