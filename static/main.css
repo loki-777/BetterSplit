@@ -1,0 +1,89 @@
+body {
+    margin-top: 80px;
+    font-family: 'Montserrat';
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.navbar {
+    min-height: 80px;
+    max-height: 80px;
+}
+
+.nav-logo {
+    padding-left: 8px;
+    margin: 0;
+    height: 9vw;
+    max-height: 46px;
+}
+
+.navbar-cut {
+    border-bottom: 2px solid #e4e4e4;
+}
+
+.fullheight {
+    height: calc(100vh - 80px);
+}
+
+.fullwidth {
+    width: 100vw;
+}
+
+/* button styles */
+.main-btn {
+    width: 48%;
+    min-height: 50px;
+    font-weight: 700;
+}
+
+#userbtn {
+    margin: 8px;
+    border: 1.5px solid #007bff;
+    font-weight: 700;
+}
+
+#newbtn {
+    border: 1.5px solid #ffc107;
+}
+
+#settlebtn {
+    border: 1.5px solid #343a40;
+}
+/* end button styles */
+
+/* card styles */
+#dues {
+    min-height: 80px;
+}
+
+#pay {
+    justify-content: flex-start;
+    margin-top: 16px;
+    min-height: 400px;
+    flex-grow: 3;
+}
+
+#transactions {
+    justify-content: flex-start;
+    height: 100%;
+    min-height: 400px;
+    flex-grow: 3;
+}
+
+#btncontainer {
+    padding: 4px;
+    margin-top: 16px;
+    min-height: 60px;
+    justify-content: space-between;
+}
+/* end card styles */
+
+.title-row {
+    margin-top: 8px;
+    max-height: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #888888;
+}

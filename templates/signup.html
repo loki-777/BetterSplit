@@ -1,68 +1,49 @@
-{% extends "login_base.html" %}
-<!-- TODO: Default redirect to signup -->
-<!-- TODO: Marketing stuff below the mainsignup view-->
+{% extends "forms_base.html" %}
 {% block head_forms %}
-<form id="login_redir" class="loginpage_form" action="/login"></form>
+<title> Signup | Better$plit </title>
 {% endblock %}
 {% block body_forms %}
-<form id="signup_creds" class="loginpage_form" action="">
-	<div class="tfield_frame">
-		{% if 'name_empty' in error %}
-		<label class="tfield_label error" for="name"> NAME </label>
-		{% else %}
-		<label class="tfield_label" for="name"> NAME </label>
-		{% endif %}
-		<br>
-		{% if 'name_empty' in error %}
-		<input class="tfield error_field" type="text" name="name" autocomplete="off" value={{ request.form.name }}> 
-		<div class="errormessage"> {{ error.name_empty }} </div>
-		{% else %}
-		<input class="tfield" type="text" name="name" autocomplete="off" value={{ request.form.name }}>
-		{% endif %}
-		<br>
-	</div>
-	<div class="tfield_frame">
-		{% if 'user_taken' in error or 'username_empty' in error%}
-		<label class="tfield_label error" for="username"> USERNAME </label>
-		{% else %}
-		<label class="tfield_label" for="username"> USERNAME </label>
-		{% endif %}
-		<br>
-		{% if 'user_taken' in error or 'username_empty' in error %}
-		<input class="tfield error_field" type="text" name="username" autocomplete="off" value={{ request.form.username }}> 
-			{% if 'username_empty' in error %}
-			<div class="errormessage"> {{ error.username_empty }} </div>
-			{% else %}
-			<div class="errormessage"> {{ error.user_taken }} </div>
-			{% endif %}
-		{% else %}
-		<input class="tfield" type="text" name="username" autocomplete="off" value={{ request.form.username }}>
-		{% endif %}
-		<br>
-	</div>
-	<div class="tfield_frame">
-		{% if 'weak_pass' in error or 'pass_empty' in error %}
-		<label class="tfield_label error" for="password"> PASSWORD </label>
-		{% else %}
-		<label class="tfield_label" for="password"> PASSWORD </label>
-		{% endif %}
-		<br>
-		{% if 'weak_pass' in error or 'pass_empty' in error %}
-		<input class="tfield error_field" type="password" name="password" value={{ request.form.password }}>
-			{% if 'passempty' in error %}
-			<div class="errormessage"> {{ error.pass_empty }} </div>
-			{% else %}
-			<div class="errormessage"> {{ error.weak_pass }} </div>
-			{% endif %}
-		{% else %}
-		<input class="tfield" type="password" name="password" value={{ request.form.password }}>
-		{% endif %}
-		<br>
-	</div>
-	<div class="button_container">
-		<button id="signup_btn" class="loginpage_button" type="submit" form="signup_creds" formmethod="post"> SIGN UP! </button>
-		<br>
-		<button id="login_redir_btn" class="loginpage_button" type="submit" form="login_redir"> BACK TO LOGIN </button>
-	</div>
-</form>
+<div id="signup-card" class="neo-box">
+    <form action="" method="POST">
+        <p>
+            {{ form.name.label(class='tfield-label') }} <br>
+            {{ form.name(class='tfield neo-inset', autocomplete='off') }}
+        </p>
+        <p>
+            {{ form.username.label(class='tfield-label') }} <br>
+            {{ form.username(class='tfield neo-inset', autocomplete='off') }}
+        </p>
+        <p>
+            {{ form.password.label(class='tfield-label') }} <br>
+            {{ form.password(class='tfield neo-inset', autocomplete='off') }}
+        </p>
+        <p>
+            {{ form.phone.label(class='tfield-label') }} <br>
+            {{ form.phone(class='tfield neo-inset', autocomplete='off') }}
+        </p>
+        <div class="tfield-label">
+            PAYMENT OPTIONS
+        </div>
+        <br>
+        <div class="payment flex-row">
+            <label class="payment-opts">
+                <img src='../static/gpay_color.svg' class="gpay-icon">
+                <input type="checkbox">
+                <span class="checkmark neo-inset"></span>
+            </label>
+            <label class="payment-opts">
+                <img src='../static/paytm_color.svg' class="paytm-icon">
+                <input type="checkbox">
+                <span class="checkmark neo-inset"></span>
+            </label>
+        </div>
+        <br>
+        <p class="btncontainer">
+            {{ form.signup(class='btn btn-outline-warning formbtn signupbtn') }}
+        </p>
+        <p class="btncontainer">
+            {{ form.loginredirect(class='btn btn-outline-dark formbtn secbtn') }}
+        </p>
+    </form>
+</div>
 {% endblock %}

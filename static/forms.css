@@ -1,0 +1,169 @@
+body {
+    font-family: 'Montserrat';
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.fullheight {
+    height: 100vh;
+}
+
+.fullwidth {
+    width: 100vw;
+}
+
+.forms-logo {
+    height: 13vw;
+    max-height: 100px;
+}
+
+.forms-tagline {
+    text-align: center;
+    width: 100%;
+    font-size: calc(16px + 0.25vw);
+    font-weight: 700;
+}
+
+.tagline-pri {
+    color: #222222;
+}
+
+.tagline-sec {
+    color: #999999;
+}
+
+#login-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 320px;
+    max-height: 360px;
+    width: 80vw;
+}
+
+#signup-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 320px;
+    max-height: 720px;
+    width: 80vw;
+}
+
+.tfield {
+    border: none;
+    border-radius: 6px;
+    min-height: 45px;
+    min-width: 250px;
+    padding-left: 10px;
+    font-size: 20px;
+}
+
+.tfield-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #888888;
+    margin-bottom: -1px;
+    margin-top: 10px;
+}
+
+.btncontainer {
+    padding: 2px;
+}
+
+.formbtn {
+    width: 100%;
+    font-weight: 700;
+    min-height: 45px;
+    border-radius: 6px;
+}
+
+.loginbtn {
+    border: 1.5px solid #03B776;
+}
+
+.loginbtn:hover,
+.loginbtn:active,
+.loginbtn:focus,
+.loginbtn:active:focus {
+    background-color: #03B776 !important;
+}
+
+.signupbtn {
+    border: 1.5px solid #FFC700;
+}
+
+.signupbtn:hover,
+.signupbtn:active,
+.signupbtn:focus,
+.signupbtn:active:focus {
+    background-color: #FFC700 !important;
+}
+
+.secbtn {
+    border: 1.5px solid #343a40;
+}
+
+.payment-opts {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.payment-opts input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    border-radius: 4px;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: #eee;
+    border-radius: 100px;
+}
+
+.payment-opts:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.payment-opts input:checked ~ .checkmark {
+    background-color: #ffc107;
+}
+
+.payment-opts input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.payment {
+    justify-content: space-around;
+}
+
+.gpay-icon {
+    height: 22px;
+}
+
+.paytm-icon {
+    height: 22px;
+}
+
+.payment-opts {
+    display: flex;
+    flex-direction: row;
+    overflow-y: hidden;
+}
