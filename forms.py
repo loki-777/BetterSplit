@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, validators
+from wtforms import TextField, StringField, PasswordField, SubmitField, BooleanField, validators
+from wtforms.validators import InputRequired, DataRequired
 
 class LoginForm(FlaskForm):
     username = StringField('USERNAME')
     password = PasswordField('PASSWORD')
     login = SubmitField('LOG IN')
-    signupredirect = SubmitField('SIGN UP')
 
 class SignupForm(FlaskForm):
     name = StringField('NAME')
@@ -13,4 +13,3 @@ class SignupForm(FlaskForm):
     password = PasswordField('PASSWORD')
     phone = StringField('PHONE NUMBER')
     signup = SubmitField('SIGN UP')
-    loginredirect = SubmitField('BACK TO LOGIN')

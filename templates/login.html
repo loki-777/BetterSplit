@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body_forms %}
 <div id="login-card" class="neo-box">
-    <form action="" method="POST">
+    <form method="POST">
         <p>
             {{ form.username.label(class='tfield-label') }} <br>
             {{ form.username(class='tfield neo-inset', autocomplete='off') }}
@@ -18,7 +18,7 @@
             {{ form.login(class='btn btn-outline-success formbtn loginbtn') }}
         </p>
         <p class="btncontainer">
-            {{ form.signupredirect(class='btn btn-outline-dark formbtn secbtn') }}
+            <button type="button" onclick=redirToSignup() class='btn btn-outline-dark formbtn secbtn'> SIGN UP </button>
         </p>
     </form>
 </div>
