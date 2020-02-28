@@ -12,13 +12,14 @@ db.init_app(app)
 
 def validate_login(username, password):
     errors = {}
-    if username != '':
+    existing_user = User.query.filter_by(username = username).first()
+    if not existing_user:
         errors['username'] = 'User does not exist!'
     else:
-        if password != '':
+        if not check_password_hash(existing_user.password, password):
             errors['password'] = 'Incorrect password!'
     return errors
-    
+
 def validate_signup(name, username, password, phone):
     errors = {}
     if len(name) < 3:
@@ -26,10 +27,15 @@ def validate_signup(name, username, password, phone):
     if len(username) < 5:
         errors['username'] = 'Username must be at least 5 characters long!'
     else:
-        if username == '':
+        username_taken = User.query.filter_by(username = username).first()
+        if username_taken:
             errors['username'] = 'Username is already taken!'
     if len(password) < 8:
         errors['password'] = 'Password is too short!'
-    if phone == '':
-        errors['phone'] = 'Phone number already in use!'
+    if len(phone) != 10:
+        errors['phone'] = 'Invalid phone number!'
+    else:
+        phone_taken = User.query.filter_by(phone = phone).first()
+        if phone_taken:
+            errors['phone'] = 'Phone number already in use!'
     return errors

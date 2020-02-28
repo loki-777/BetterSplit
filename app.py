@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, session, request, flash
+from flask import Flask, render_template, redirect, url_for, session, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from validators import validate_login, validate_signup
 from models import db, User, Dues, Transactions
@@ -43,6 +43,19 @@ def signup():
             form.phone.data
         )
         if not errors:
+            gpay_bool = 'gpay' in request.form
+            paytm_bool = 'paytm' in request.form
+            hashed_password = generate_password_hash(form.password.data)
+            new_user = User(
+                name = form.name.data,
+                username = form.username.data,
+                password = hashed_password,
+                phone = form.phone.data,
+                gpay = gpay_bool,
+                paytm = paytm_bool
+            )
+            db.session.add(new_user)
+            db.session.commit()
             return redirect('/')
     return render_template('signup.html', form = form, errors = errors)
 
