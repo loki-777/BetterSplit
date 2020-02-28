@@ -9,7 +9,6 @@ body::-webkit-scrollbar {
 
 .navbar {
     min-height: 80px;
-    max-height: 80px;
 }
 
 .nav-logo {
@@ -21,6 +20,22 @@ body::-webkit-scrollbar {
 
 .navbar-cut {
     border-bottom: 2px solid #e4e4e4;
+}
+
+.profile-modal {
+    border-radius: 8px;
+}
+
+.profile-modal-dialog {
+    padding: 30px;
+}
+
+.profile-modal-name {
+    font-size: calc(24px + 1vw);
+}
+
+.profile-modal-row {
+    font-size: calc(18px + 0.5vw);
 }
 
 .fullheight {
@@ -50,6 +65,10 @@ body::-webkit-scrollbar {
 
 #settlebtn {
     border: 1.5px solid #343a40;
+}
+
+#logoutbtn {
+    margin: 2px;
 }
 /* end button styles */
 

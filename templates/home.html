@@ -13,14 +13,40 @@
     <link rel="stylesheet" href={{ url_for("static", filename="common.css") }}>
     <link rel="stylesheet" href={{ url_for("static", filename="main.css") }}>
 </head>
-<nav class="navbar fixed-top navbar-light navbar-cut light">
+<nav class="navbar fixed-top navbar-collapse navbar-light navbar-cut light">
     <a class="navbar-brand" href="#">
         <img class="nav-logo" src="../static/logo_color.svg">
     </a>
     <div class="navbar-nav">
-        <button id="userbtn" class="btn btn-outline-primary" type="button">@user</a>
+        <button id="userbtn" class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#profile">
+            {{ '@' + profile['username'] }}
+        </button>
     </div>
 </nav>
+<div class="modal fade light" id="profile">
+    <div class="modal-dialog profile-modal-dialog">
+        <div class="modal-content neo-box profile-modal light">
+            <div class="modal-body light">
+
+                <div class="profile-modal-name">
+                    Hello, {{ profile['name'] }}.
+                </div>
+                <div class="profile-modal-row">
+                    {{ '@' + profile['username'] }}
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <form action="/logout">
+                        <button id="logoutbtn" class="btn btn-outline-danger" type="submit" formmethod="POST"> 
+                            LOG OUT
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
 <body>
     <section id="main" class="container-fluid fullheight fullwidth light">
         <div class="row fullheight">

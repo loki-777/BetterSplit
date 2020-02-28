@@ -18,7 +18,14 @@ db.init_app(app)
 def home():
     if 'user' not in session:
         return redirect('/login')
-    return render_template('home.html')
+    username = session['user']
+    profile_query = User.query.filter_by(username = username).first()
+    profile = {
+        'username' : profile_query.username,
+        'name' : profile_query.name,
+        'phone' : profile_query.phone
+    }
+    return render_template('home.html', profile = profile)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -66,6 +73,11 @@ def signup():
             session['user'] = request.form['username']
             return redirect('/')
     return render_template('signup.html', form = form, errors = errors)
+
+@app.route('/logout', methods = ['POST'])
+def logout():
+    session.clear()
+    return redirect('/login')
 
 if __name__ == '__main__':
     app.run(debug = True)
