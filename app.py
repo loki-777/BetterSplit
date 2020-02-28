@@ -16,10 +16,14 @@ db.init_app(app)
 
 @app.route('/', methods = ['GET', 'POST'])
 def home():
+    if 'user' not in session:
+        return redirect('/login')
     return render_template('home.html')
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
+    if 'user' in session:
+        return redirect('/')
     form = LoginForm(request.form)
     errors = {}
     if request.method == 'POST':
@@ -28,11 +32,14 @@ def login():
             form.password.data
         )
         if not errors:
+            session['user'] = request.form['username']
             return redirect('/')
     return render_template('login.html', form = form, errors = errors)
 
 @app.route('/signup', methods = ['GET', 'POST'])
 def signup():
+    if 'user' in session:
+        return redirect('/')
     form = SignupForm()
     errors = {}
     if request.method == 'POST':
@@ -56,6 +63,7 @@ def signup():
             )
             db.session.add(new_user)
             db.session.commit()
+            session['user'] = request.form['username']
             return redirect('/')
     return render_template('signup.html', form = form, errors = errors)
 
