@@ -23,6 +23,14 @@
 }
 /* end debug colors */
 
+.minus {
+    color: #dc3545;
+}
+
+.plus {
+    color: #28a745;
+}
+
 .flat-box {
     border-color: 1px solid gray;
 }
@@ -60,6 +68,16 @@
 .static-cell {
     margin-left: 8px;
     margin-right: 8px;
+    font-size: calc(24px + 0.5vw);
+    font-weight: 700;
+}
+
+.cell-divider {
+    border-radius: 100px;
+    border-left: 3px solid #CCCCCC;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 56px;
 }
 
 .height-100 {

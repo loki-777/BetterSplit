@@ -18,6 +18,7 @@
         <img class="nav-logo" src="../static/logo_color.svg">
     </a>
     <div class="navbar-nav">
+        <!-- TODO: Square user icon for mobile -->
         <button id="userbtn" class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#profile">
             {{ '@' + profile['username'] }}
         </button>
@@ -52,14 +53,16 @@
         <div class="row fullheight">
             <div class="col-xl-3 flex-col p-4 overflow-hidden">
                 <div id="dues" class="flex-row container neo-box">
-                    <div class="flex-col static-cell red">
-                        <!-- RED -->
+                    <div class="flex-col static-cell minus">
+                        {{ dues['minus'] }}
                     </div>
-                    <div class="flex-col static-cell blue">
-                        <!-- NET -->
+                    <div class="cell-divider"></div>
+                    <div class="flex-col static-cell net">
+                        {{ dues['net'] }}
                     </div>
-                    <div class="flex-col static-cell green">
-                        <!-- GREEN -->
+                    <div class="cell-divider"></div>
+                    <div class="flex-col static-cell plus">
+                        {{ dues['plus'] }}
                     </div>
                 </div>
                 <div id="btncontainer" class="flex-row container-fluid overflow-hidden">

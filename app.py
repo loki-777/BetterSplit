@@ -25,7 +25,13 @@ def home():
         'name' : profile_query.name,
         'phone' : profile_query.phone
     }
-    return render_template('home.html', profile = profile)
+    due_query = Dues.query.filter_by(username = username).first()
+    dues = {
+        'plus' : due_query.plus,
+        'minus' : due_query.minus,
+        'net' : due_query.net
+    }
+    return render_template('home.html', profile = profile, dues = dues)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
