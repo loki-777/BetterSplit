@@ -35,7 +35,12 @@ body::-webkit-scrollbar {
 }
 
 .profile-modal-row {
-    font-size: calc(18px + 0.5vw);
+    font-size: calc(15px + 0.5vw);
+}
+
+.profile-modal-username {
+    color: #007bff;
+    font-weight: 700;
 }
 
 .fullheight {
@@ -69,6 +74,8 @@ body::-webkit-scrollbar {
 
 #logoutbtn {
     margin: 2px;
+    font-weight: 700;
+    border: 1.5px solid #dc3545;
 }
 /* end button styles */
 
