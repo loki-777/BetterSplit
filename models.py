@@ -18,7 +18,6 @@ class User(db.Model):
 	gpay = db.Column(db.Boolean)
 	paytm = db.Column(db.Boolean)
 
-
 class Dues(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	username = db.Column(db.String(50))

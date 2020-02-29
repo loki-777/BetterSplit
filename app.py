@@ -68,7 +68,14 @@ def signup():
                 gpay = gpay_bool,
                 paytm = paytm_bool
             )
+            new_due = Dues(
+                username = form.username.data,
+                plus = 0,
+                minus = 0,
+                net = 0
+            )
             db.session.add(new_user)
+            db.session.add(new_due)
             db.session.commit()
             session['user'] = request.form['username']
             return redirect('/')
