@@ -4,6 +4,7 @@ from validators import validate_login, validate_signup
 from models import db, User, Dues, Transactions
 from flask_sqlalchemy import SQLAlchemy
 from forms import LoginForm, SignupForm
+from parsers import parse_dues
 
 app = Flask(__name__)
 
@@ -26,10 +27,11 @@ def home():
         'phone' : profile_query.phone
     }
     due_query = Dues.query.filter_by(username = username).first()
+    dues = parse_dues(due_query)
     dues = {
-        'plus' : due_query.plus,
-        'minus' : due_query.minus,
-        'net' : due_query.net
+        'plus' : dues['plus'],
+        'minus' : dues['minus'],
+        'net' : dues['net']
     }
     return render_template('home.html', profile = profile, dues = dues)
 

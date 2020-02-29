@@ -53,17 +53,19 @@
         <div class="row fullheight">
             <div class="col-xl-3 flex-col p-4 overflow-hidden">
                 <div id="dues" class="flex-row container neo-box">
+                    <div class="cell-holder-left"></div>
                     <div class="flex-col static-cell minus">
-                        {{ dues['minus'] }}
+                        {{ dues['minus']}}
                     </div>
                     <div class="cell-divider"></div>
                     <div class="flex-col static-cell net">
-                        {{ dues['net'] }}
+                        {{ dues['net']}}
                     </div>
                     <div class="cell-divider"></div>
                     <div class="flex-col static-cell plus">
-                        {{ dues['plus'] }}
+                        {{ dues['plus']}}
                     </div>
+                    <div class="cell-holder-right"></div>
                 </div>
                 <div id="btncontainer" class="flex-row container-fluid overflow-hidden">
                     <button id="newbtn" class="btn main-btn btn-outline-warning"> NEW PAYMENT </button>
