@@ -2,6 +2,7 @@ from werkzeug.security import check_password_hash
 from models import db, User, Dues, Transactions
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+import re
 
 app = Flask(__name__)
 
@@ -32,7 +33,9 @@ def validate_signup(name, username, password, phone):
             errors['username'] = 'Username is already taken!'
     if len(password) < 8:
         errors['password'] = 'Password is too short!'
-    if len(phone) != 10:
+    check_phone = '^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$'
+    result = re.match(check_phone, phone)
+    if not result or len(phone) != 10:
         errors['phone'] = 'Invalid phone number!'
     else:
         phone_taken = User.query.filter_by(phone = phone).first()
