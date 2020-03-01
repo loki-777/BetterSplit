@@ -56,6 +56,11 @@ input:focus, textarea:focus, select:focus{
     overflow: hidden;
 }
 
+#qpay-card {
+    justify-content: space-evenly;
+    flex-grow: 3;
+}
+
 .tfield {
     border: none;
     border-radius: 6px;
@@ -63,6 +68,26 @@ input:focus, textarea:focus, select:focus{
     max-width: 300px;
     padding-left: 10px;
     font-size: 20px;
+}
+
+.tfield-big {
+    border: none;
+    border-radius: 6px;
+    min-height: 95px;
+    max-width: 300px;
+    width: 98%;
+    padding-left: 10px;
+    font-size: 60px;
+}
+
+.tfield-med {
+    border: none;
+    border-radius: 6px;
+    min-height: 60px;
+    max-width: 300px;
+    width: 98%;
+    padding-left: 10px;
+    font-size: 28px;
 }
 
 .tfield-label {
@@ -119,6 +144,21 @@ input:focus, textarea:focus, select:focus{
 .signupbtn:focus,
 .signupbtn:active:focus {
     background-color: #FFC700 !important;
+}
+
+.qpaybtn {
+    width: 99%;
+    height: 15%;
+    padding: 8px;
+    border: 1.5px solid #6a1b9a;
+    color: #6a1b9a;
+}
+
+.qpaybtn:hover,
+.qpaybtn:active,
+.qpaybtn:focus,
+.qpaybtn:active:focus {
+    background-color: #6a1b9a !important;
 }
 
 .secbtn {
@@ -185,4 +225,8 @@ input:focus, textarea:focus, select:focus{
     display: flex;
     flex-direction: row;
     overflow-y: hidden;
+}
+
+.qpay-field {
+    width: 98%;
 }

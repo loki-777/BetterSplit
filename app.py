@@ -1,9 +1,10 @@
 from flask import Flask, render_template, redirect, url_for, session, request
 from werkzeug.security import check_password_hash, generate_password_hash
-from validators import validate_login, validate_signup
+from validators import validate_login, validate_signup, validate_quickpay
+from forms import LoginForm, SignupForm, QuickPayForm
 from models import db, User, Dues, Transactions
 from flask_sqlalchemy import SQLAlchemy
-from forms import LoginForm, SignupForm
+from transactors import quick_pay
 from parsers import parse_dues
 
 app = Flask(__name__)
@@ -20,6 +21,19 @@ def home():
     if 'user' not in session:
         return redirect('/login')
     username = session['user']
+    form = QuickPayForm(request.form)
+    errors = {}
+    if request.method == 'POST':
+        errors = validate_quickpay(
+            form.amount.data,
+            form.to.data
+        )
+        if not errors:
+            quick_pay(
+                form.amount.data,
+                form.to.data,
+                username
+            )
     profile_query = User.query.filter_by(username = username).first()
     profile = {
         'username' : profile_query.username,
@@ -33,7 +47,13 @@ def home():
         'minus' : dues['minus'],
         'net' : dues['net']
     }
-    return render_template('home.html', profile = profile, dues = dues)
+    return render_template(
+        'home.html',
+        form = form,
+        errors = errors,
+        profile = profile,
+        dues = dues
+    )
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -49,7 +69,11 @@ def login():
         if not errors:
             session['user'] = request.form['username']
             return redirect('/')
-    return render_template('login.html', form = form, errors = errors)
+    return render_template(
+        'login.html',
+        form = form,
+        errors = errors
+    )
 
 @app.route('/signup', methods = ['GET', 'POST'])
 def signup():
@@ -87,7 +111,11 @@ def signup():
             db.session.commit()
             session['user'] = request.form['username']
             return redirect('/')
-    return render_template('signup.html', form = form, errors = errors)
+    return render_template(
+        'signup.html',
+        form = form,
+        errors = errors
+    )
 
 @app.route('/logout', methods = ['POST'])
 def logout():

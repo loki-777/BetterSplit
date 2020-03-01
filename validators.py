@@ -42,3 +42,6 @@ def validate_signup(name, username, password, phone):
         if phone_taken:
             errors['phone'] = 'Phone number already in use!'
     return errors
+
+def validate_quickpay(amount, to):
+    pass
