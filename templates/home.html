@@ -29,7 +29,6 @@
     <div class="modal-dialog profile-modal-dialog">
         <div class="modal-content neo-box profile-modal light">
             <div class="modal-body light">
-
                 <div class="profile-modal-name">
                     Hello, {{ profile['name'] }}.
                 </div>
@@ -44,7 +43,6 @@
                         </button>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
@@ -77,6 +75,8 @@
                         QUICK PAY
                     </div>
                     <div id="qpay-card" class=" container-fluid flex-col width-100 height-100">
+                        <!-- TODO: Make amount container expand with text length -->
+                        <!-- TODO: Persistent rupee icon on left -->
                         <div class="flex-row qpay-amount-container">
                             {% if 'amount' in errors %}
                                 {{ form.amount(class='tfield-big neo-inset error-bg qpay-field', autocomplete='off')}}
@@ -84,6 +84,7 @@
                                 {{ form.amount(class='tfield-big neo-inset qpay-field', autocomplete='off')}}
                             {% endif %}
                         </div>
+                        <!-- TODO: Persistent '@' icon on left -->
                         <div class="flex-row qpay-to-container">
                             {% if 'to' in errors %}
                                 {{ form.to(class='tfield-med neo-inset error-bg qpay-field', autocomplete='off')}}
