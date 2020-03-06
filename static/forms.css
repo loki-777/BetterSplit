@@ -148,9 +148,11 @@ input:focus, textarea:focus, select:focus{
 }
 
 .qpaybtn {
-    width: 99%;
+    width: 98%;
     height: 15%;
     padding: 8px;
+    max-width: 300px;
+    max-height: 60px;
     border: 1.5px solid #6a1b9a;
     color: #6a1b9a;
 }
