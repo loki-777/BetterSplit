@@ -45,22 +45,6 @@
                 {{ form.phone(class='tfield neo-inset', autocomplete='off') }}
             {% endif %}
         </p>
-        <div class="tfield-label">
-            PAYMENT OPTIONS
-        </div>
-        <br>
-        <div class="payment flex-row">
-            <label class="payment-opts">
-                <img src='../static/gpay_color.svg' class="gpay-icon">
-                <input name="gpay" type="checkbox">
-                <span class="checkmark neo-inset"></span>
-            </label>
-            <label class="payment-opts">
-                <img src='../static/paytm_color.svg' class="paytm-icon">
-                <input name="paytm" type="checkbox">
-                <span class="checkmark neo-inset"></span>
-            </label>
-        </div>
         <br>
         <p class="btncontainer">
             {{ form.signup(class='btn btn-outline-warning formbtn signupbtn') }}

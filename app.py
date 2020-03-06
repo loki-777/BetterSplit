@@ -2,9 +2,9 @@ from flask import Flask, render_template, redirect, url_for, session, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from validators import validate_login, validate_signup, validate_quickpay
 from forms import LoginForm, SignupForm, QuickPayForm
-from models import db, User, Dues, Transactions
+from models import db, User, Transactions
+from actions import quick_pay, init_new_user
 from flask_sqlalchemy import SQLAlchemy
-from transactors import quick_pay
 from parsers import parse_dues
 
 app = Flask(__name__)
@@ -38,21 +38,16 @@ def home():
     profile = {
         'username' : profile_query.username,
         'name' : profile_query.name,
-        'phone' : profile_query.phone
-    }
-    due_query = Dues.query.filter_by(username = username).first()
-    dues = parse_dues(due_query)
-    dues = {
-        'plus' : dues['plus'],
-        'minus' : dues['minus'],
-        'net' : dues['net']
+        'phone' : profile_query.phone,
+        'plus' : profile_query.plus,
+        'minus' : profile_query.minus,
+        'net' : profile_query.net
     }
     return render_template(
         'home.html',
         form = form,
         errors = errors,
         profile = profile,
-        dues = dues
     )
 
 @app.route('/login', methods = ['GET', 'POST'])
@@ -89,32 +84,38 @@ def signup():
             form.phone.data
         )
         if not errors:
-            gpay_bool = 'gpay' in request.form
-            paytm_bool = 'paytm' in request.form
             hashed_password = generate_password_hash(form.password.data)
             new_user = User(
                 name = form.name.data,
                 username = form.username.data,
                 password = hashed_password,
                 phone = form.phone.data,
-                gpay = gpay_bool,
-                paytm = paytm_bool
-            )
-            new_due = Dues(
-                username = form.username.data,
                 plus = 0,
                 minus = 0,
                 net = 0
             )
             db.session.add(new_user)
-            db.session.add(new_due)
             db.session.commit()
             session['user'] = request.form['username']
-            return redirect('/')
+            return redirect('/signup/continue')
     return render_template(
         'signup.html',
         form = form,
         errors = errors
+    )
+
+@app.route('/signup/continue', methods = ['GET', 'POST'])
+def signup_continue():
+    if 'user' not in session:
+        return redirect('/signup')
+    if request.method == 'POST':
+        user = session['user']
+        gpay = 'gpay' in request.form
+        paytm = 'paytm' in request.form
+        init_new_user(user, gpay, paytm)
+        return redirect('/')
+    return render_template(
+        'signup_continue.html'
     )
 
 @app.route('/logout', methods = ['POST'])

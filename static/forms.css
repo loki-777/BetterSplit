@@ -248,3 +248,7 @@ input:focus, textarea:focus, select:focus{
 .qpay-field {
     width: 98%;
 }
+
+.divider {
+    min-width: 30px;
+}

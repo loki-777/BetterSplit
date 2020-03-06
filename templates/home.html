@@ -54,15 +54,19 @@
                 <div id="dues" class="flex-row container neo-box">
                     <div class="cell-holder-left"></div>
                     <div class="flex-col static-cell minus">
-                        {{ dues['minus']}}
+                        {{ '-' + profile['minus'] | string}}
                     </div>
                     <div class="cell-divider"></div>
                     <div class="flex-col static-cell net">
-                        {{ dues['net']}}
+                        {% if profile['net'] < 0 %}
+                            {{ '-' + profile['net'] | string }}
+                        {% else %}
+                            {{ '+' + profile['net'] | string }}
+                        {% endif %}
                     </div>
                     <div class="cell-divider"></div>
                     <div class="flex-col static-cell plus">
-                        {{ dues['plus']}}
+                        {{ '+' + profile['plus'] | string}}
                     </div>
                     <div class="cell-holder-right"></div>
                 </div>

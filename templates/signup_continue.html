@@ -1,0 +1,31 @@
+{% extends "forms_base.html" %}
+{% block head_forms %}
+<title> Signup | Better$plit </title>
+{% endblock %}
+{% block body_forms %}
+<div id="signup-card" class="neo-box">
+    <form method="POST">
+        <div class="tfield-label">
+            PAYMENT OPTIONS
+        </div>
+        <br>
+        <div class="payment flex-row">
+            <label class="payment-opts">
+                <img src='../static/gpay_color.svg' class="gpay-icon">
+                <input name="gpay" type="checkbox">
+                <span class="checkmark neo-inset"></span>
+            </label>
+            <span class="divider"></span>
+            <label class="payment-opts">
+                <img src='../static/paytm_color.svg' class="paytm-icon">
+                <input name="paytm" type="checkbox">
+                <span class="checkmark neo-inset"></span>
+            </label>
+        </div>
+        <br>
+        <p class="btncontainer">
+            <button type="submit" class='btn btn-outline-warning formbtn signupbtn'> CONTINUE </button>
+        </p>
+    </form>
+</div>
+{% endblock %}

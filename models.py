@@ -15,12 +15,6 @@ class User(db.Model):
 	username = db.Column(db.String(50), unique = True)
 	password = db.Column(db.String(100))
 	phone = db.Column(db.String(100), unique = True)
-	gpay = db.Column(db.Boolean)
-	paytm = db.Column(db.Boolean)
-
-class Dues(db.Model):
-	id = db.Column(db.Integer, primary_key = True)
-	username = db.Column(db.String(50))
 	plus = db.Column(db.Float)
 	minus = db.Column(db.Float)
 	net = db.Column(db.Float)

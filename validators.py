@@ -1,5 +1,5 @@
 from werkzeug.security import check_password_hash
-from models import db, User, Dues, Transactions
+from models import db, User, Transactions
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
 import re
