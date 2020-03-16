@@ -53,6 +53,41 @@
 	margin: 20px;
 }
 
+#members-table-container {
+	padding-top: 20px;
+	justify-content: flex-start;
+}
+
+#group-members {
+    width: 100%;
+}
+
+.member-list {
+    height: 54px;
+    width: 100%;
+}
+
+.member-name {
+    text-align: left;
+    font-weight: 700;
+    font-size: calc(18px + 0.8vw);
+    max-width: 0;
+    width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.member-due {
+	text-align: right;
+	font-size: calc(18px + 0.8vw);
+    max-width: 20%;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
 @media only screen and (orientation: portrait) {
 	#name {
 		max-width: 85vw;
