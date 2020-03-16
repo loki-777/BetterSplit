@@ -7,12 +7,24 @@
 <body>
     <section id="main" class="container-fluid fullheight fullwidth light">
 		<div class="row fullheight">
-			<div class="col-xl-9 p-4 overflow-hidden">
-				<div id="name" class="flex-col name-oflow">
-					{{ group['name'] }}
+			<div id="content-col" class="col-xl-9 p-4 flex-col overflow-hidden">
+				<div id="head" class="flex-row name-oflow">
+					<div id="name">
+						{{ group['name'] }}
+					</div>
+					<div id="invite">
+						<button id="invitebtn" type="button" onclick=copyButton() class="copy btn btn-outline-success" data-clipboard-text={{ '127.0.0.1:5000/join/' + group['uuid'] }}> 
+							+ INVITE LINK
+						</button>
+					</div>
 				</div>
 				<div id="members" class="flex-col container-fluid neo-box">
-					
+					<div class="width-100 title-row overflow-hidden">
+                        MEMBERS
+					</div>
+					<div class="flex-col width-100 height-100">
+                        <!-- MEMBERS TABLE -->
+                    </div>
 				</div>
 			</div>
 			<div class="col-xl-3 flex-col p-4 overflow-hidden">
@@ -20,6 +32,8 @@
 				</div>
 			</div>
 		</div>
-	</section>	
+	</section>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+	<script type="text/javascript">new ClipboardJS('.copy');</script>
 </body>
 {% endblock %}

@@ -13,3 +13,8 @@ function redirToPayment() {
 function viewGroup(uuid) {
     window.location.href = '/groups/'.concat(uuid)
 }
+
+function copyButton() {
+    var button = document.getElementById('invitebtn')
+    button.innerText = 'COPIED!'
+}

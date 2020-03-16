@@ -1,12 +1,54 @@
-#name {
+#head {
 	justify-content: flex-start;
 	align-items: flex-start;
+	flex-wrap: wrap;
 	font-size: calc(20px + 2vw);
 	font-weight: 700;
 	padding-bottom: 25px;
-	white-space: nowrap;
+	overflow: hidden;
 }
 
 #members {
 	height: calc(100% - 72px - 2vw);
 }
+
+#name {
+	max-width: 61vw;
+	white-space: nowrap;
+	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+
+#invitebtn {
+	font-weight: 700;
+	border: 1.5px solid #03B776;
+	padding: 8px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 95%;
+	margin: 4px;
+}
+
+#invite {
+	margin-left: 30px;
+	margin-right: 10px;
+	width: 9vw;
+}
+
+#content-col {
+	justify-content: center;
+	align-items: flex-start;
+}
+
+
+@media only screen and (orientation: portrait) {
+	#name {
+		max-width: 85vw;
+	}
+	#invite {
+		margin: 0;
+		padding-top: 10px;
+		width: 90vw;
+	}
+  }
+  
