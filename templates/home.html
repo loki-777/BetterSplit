@@ -1,52 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Better$plit </title>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat&display=swap">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin&display=swap">
-    <link rel="stylesheet" href={{ url_for("static", filename="common.css") }}>
-    <link rel="stylesheet" href={{ url_for("static", filename="forms.css") }}>
-    <link rel="stylesheet" href={{ url_for("static", filename="main.css") }}>
-</head>
-<nav class="navbar fixed-top navbar-collapse navbar-light navbar-cut light">
-    <a class="navbar-brand" href="#">
-        <img class="nav-logo" src="../static/logo_color.svg">
-    </a>
-    <div class="navbar-nav">
-        <!-- TODO: Square user icon for mobile -->
-        <button id="userbtn" class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#profile">
-            {{ '@' + profile['username'] }}
-        </button>
-    </div>
-</nav>
-<div class="modal fade light" id="profile">
-    <div class="modal-dialog profile-modal-dialog">
-        <div class="modal-content neo-box profile-modal light">
-            <div class="modal-body light">
-                <div class="profile-modal-name">
-                    Hello, {{ profile['name'] }}.
-                </div>
-                <div class="profile-modal-row profile-modal-username">
-                    {{ '@' + profile['username'] }}
-                </div>
-                <br>
-                <div class="modal-footer">
-                    <form action="/logout">
-                        <button id="logoutbtn" class="btn btn-outline-danger" type="submit" formmethod="POST"> 
-                            LOG OUT
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% extends "main_base.html" %}
+{% block main_head %}
+<title> Better$plit </title>
+{% endblock %}
+{% block main_body %}
 <body>
     <section id="main" class="container-fluid fullheight fullwidth light">
         <div class="row fullheight">
@@ -71,7 +27,7 @@
                     <div class="cell-holder-right"></div>
                 </div>
                 <div id="btncontainer" class="flex-row container-fluid overflow-hidden">
-                    <button id="newbtn" class="btn main-btn btn-outline-warning"> NEW PAYMENT </button>
+                    <button id="newbtn" onclick=redirToPayment() class="btn main-btn btn-outline-warning"> NEW PAYMENT </button>
                     <button id="settlebtn" class="btn main-btn btn-outline-dark"> SETTLE DUES </button>
                 </div>
                 <div id="pay" class="flex-col container neo-box">
@@ -113,4 +69,4 @@
         </div>
     </section>
 </body>
-</html>
+{% endblock %}

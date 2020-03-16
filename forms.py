@@ -26,6 +26,11 @@ class SignupForm(FlaskForm):
     ])
     signup = SubmitField('SIGN UP')
 
+class GroupForm(FlaskForm):
+    name = StringField('NAME *', validators = [
+        DataRequired()
+    ])
+
 class QuickPayForm(FlaskForm):
     amount = FloatField('AMOUNT', validators = [
         DataRequired()

@@ -1,0 +1,12 @@
+#name {
+	justify-content: flex-start;
+	align-items: flex-start;
+	font-size: calc(20px + 2vw);
+	font-weight: 700;
+	padding-bottom: 25px;
+	white-space: nowrap;
+}
+
+#members {
+	height: calc(100% - 72px - 2vw);
+}

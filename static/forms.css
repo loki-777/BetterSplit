@@ -164,6 +164,18 @@ input:focus, textarea:focus, select:focus{
     background-color: #6a1b9a !important;
 }
 
+.createbtn {
+    border: 1.5px solid #6a1b9a;
+    color: #6a1b9a;
+}
+
+.createbtn:hover,
+.createbtn:active,
+.createbtn:focus,
+.createbtn:active:focus {
+    background-color: #6a1b9a !important;
+}
+
 .secbtn {
     border: 1.5px solid #343a40;
 }
@@ -178,7 +190,8 @@ input:focus, textarea:focus, select:focus{
 .loginbtn:focus,
 .signupbtn:focus,
 .qpaybtn:focus,
-.secbtn:focus {
+.secbtn:focus,
+.createbtn:focus {
     color: #ffffff;
 }
 /* end button styles */

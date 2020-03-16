@@ -1,0 +1,25 @@
+{% extends "main_base.html" %}
+{% block main_head %}
+<title> {{ group['name'] }} | Better$plit </title>
+<link rel="stylesheet" href={{ url_for("static", filename="groups.css") }}>
+{% endblock %}
+{% block main_body %}
+<body>
+    <section id="main" class="container-fluid fullheight fullwidth light">
+		<div class="row fullheight">
+			<div class="col-xl-9 p-4 overflow-hidden">
+				<div id="name" class="flex-col name-oflow">
+					{{ group['name'] }}
+				</div>
+				<div id="members" class="flex-col container-fluid neo-box">
+					
+				</div>
+			</div>
+			<div class="col-xl-3 flex-col p-4 overflow-hidden">
+				<div id="actions" class="height-100 flex-col container-fluid neo-box">	
+				</div>
+			</div>
+		</div>
+	</section>	
+</body>
+{% endblock %}

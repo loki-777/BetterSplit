@@ -9,6 +9,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+class UserGroup(db.Model):
+	id = db.Column(db.Integer, primary_key = True)
+	name = db.Column(db.String(50))
+	uuid = db.Column(db.String(500))
+
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	name = db.Column(db.String(50))
@@ -24,5 +29,5 @@ class Transactions(db.Model):
 	paid_by = db.Column(db.String(50))
 	paid_to = db.Column(db.String(50))
 	amount = db.Column(db.Float)
-	remark = db.Column(db.String(500))
+	group = db.Column(db.String(500))
 	timestamp = db.Column(db.DateTime, default = datetime.now)

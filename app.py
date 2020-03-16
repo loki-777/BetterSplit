@@ -1,9 +1,9 @@
+from actions import quick_pay, init_new_user, init_new_group, get_members, get_groups
 from flask import Flask, render_template, redirect, url_for, session, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from validators import validate_login, validate_signup, validate_quickpay
-from forms import LoginForm, SignupForm, QuickPayForm
-from models import db, User, Transactions
-from actions import quick_pay, init_new_user
+from forms import LoginForm, SignupForm, QuickPayForm, GroupForm
+from models import db, User, Transactions, UserGroup
 from flask_sqlalchemy import SQLAlchemy
 from parsers import parse_dues
 
@@ -122,6 +122,68 @@ def signup_continue():
 def logout():
     session.clear()
     return redirect('/login')
+
+@app.route('/payments', methods = ['GET', 'POST'])
+def payment():
+    if 'user' not in session:
+        return redirect('/')
+    form = GroupForm()
+    profile_query = User.query.filter_by(username = session['user']).first()
+    profile = {
+        'username' : profile_query.username,
+        'name' : profile_query.name,
+        'phone' : profile_query.phone,
+        'plus' : profile_query.plus,
+        'minus' : profile_query.minus,
+        'net' : profile_query.net
+    }
+    group_uuids = get_groups(session['user'])
+    groups = {}
+    for uuid in group_uuids:
+        groups[uuid] = UserGroup.query.filter_by(uuid = uuid).first().name
+    return render_template(
+        'payments.html',
+        profile = profile,
+        form = form,
+        groups = groups
+    )
+
+@app.route('/groups/create', methods = ['POST'])
+def groups_create():
+    if 'user' not in session:
+        return redirect('/')
+    form = GroupForm()
+    new_uuid = init_new_group(session['user'], form.name.data)
+    return redirect('/groups/' + new_uuid)
+
+@app.route('/groups/<uuid>', methods = ['GET', 'POST'])
+def groups(uuid):
+    if 'user' not in session:
+        return redirect('/')
+    member_list = get_members(uuid)
+    if session['user'] not in member_list:
+        return redirect('/')
+    profile_query = User.query.filter_by(username = session['user']).first()
+    profile = {
+        'username' : profile_query.username,
+        'name' : profile_query.name,
+        'phone' : profile_query.phone,
+        'plus' : profile_query.plus,
+        'minus' : profile_query.minus,
+        'net' : profile_query.net
+    }
+    group_query = UserGroup.query.filter_by(uuid = uuid).first()
+    group = {
+        'name' : group_query.name,
+        'uuid' : uuid,
+        'member_list' : member_list
+    }
+    # TODO: The group landing page with current members, pay button and copy invite link
+    return render_template(
+        'groups.html',
+        profile = profile,
+        group = group
+    )
 
 if __name__ == '__main__':
     app.run(debug = True)

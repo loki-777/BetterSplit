@@ -1,0 +1,85 @@
+{% extends "main_base.html" %}
+{% block main_head %}
+<title> Payments | Better$plit </title>
+<link rel="stylesheet" href={{ url_for("static", filename="payments.css") }}>
+<script>
+$(document).ready(function(){
+    $("#new-group").on('shown.bs.modal', function(){
+        $(this).find('#new-name').focus();
+    });
+});
+</script>
+{% endblock %}
+{% block main_body %}
+<div class="modal fade light" id="new-group">
+    <div class="modal-dialog profile-modal-dialog">
+        <div class="modal-content neo-box profile-modal light">
+            <div class="modal-body light">
+                <div class="group-modal-name">
+                    Name your group:
+                </div>
+                <br>
+                <div class="profile-modal-row">
+                    <form id="new-group-form" action="/groups/create" method="POST">
+                        {{ form.name(class='width-100 tfield neo-inset group-name-tfield', autocomplete='off', id='new-name') }}
+                    </form>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button id="createbtn" class="createbtn btn btn-outline-dark" form="new-group-form" type="submit" formmethod="POST"> 
+                        CREATE GROUP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<body>
+    <section id="main" class="container-fluid fullheight-nonav fullwidth light">
+        <div class="row fullheight">
+            <div class="col-xl-6 flex-col p-4 overflow-hidden">
+                <div id="group" class="flex-col height-100 container neo-box">
+                    <div class="width-100 title-row overflow-hidden">
+                        GROUP PAY
+                    </div>
+                    <div id="group-card" class="container-fluid flex-col width-100 height-100">
+                        <table id="user-groups">
+                            <tbody class="width-100">
+                            {% if groups %}
+                                {% for uuid, name in groups.items() %}
+                                    <tr class="group-list">
+                                        <td class="group-name">
+                                            {{ name }}
+                                        </td>
+                                        <td class="group-view">
+                                            <button id="group-viewbtn" class="viewbtn btn btn-outline-success" type="button" onclick=viewGroup({{ uuid | tojson }})>
+                                                VIEW
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="new-holder" class="flex-row width-100 overflow-hidden">
+                        <button id="groupbtn" class="createbtn btn btn-outline-dark" type="button" data-toggle="modal" data-target="#new-group">
+                            NEW GROUP
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 flex-col p-4 overflow-hidden">
+                <div id="reverse" class="flex-col height-100 container neo-box">
+                    <div class="width-100 title-row overflow-hidden">
+                        REVERSE PAY
+                    </div>
+                    <div id="reverse-card" class=" container-fluid flex-col width-100 height-100">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock %}

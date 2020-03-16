@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block head_forms %}
-    {% endblock %}
     <script src="../static/common.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -14,23 +12,43 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin&display=swap">
     <link rel="stylesheet" href={{ url_for("static", filename="common.css") }}>
     <link rel="stylesheet" href={{ url_for("static", filename="forms.css") }}>
+    <link rel="stylesheet" href={{ url_for("static", filename="main.css") }}>
+    {% block main_head %}
+    {% endblock %}
 </head>
-<body>
-    <section id="main" class="container-fluid fullheight-nonav fullwidth light">
-        <div class="row fullheight">
-            <div class="col-xl-6 flex-col p-5 overflow-hidden">
-                <img class="forms-logo" src="../static/logo_color.svg">
+<nav class="navbar fixed-top navbar-collapse navbar-light navbar-cut light">
+    <a class="navbar-brand" href="#">
+        <img class="nav-logo" src="../static/logo_color.svg">
+    </a>
+    <div class="navbar-nav">
+        <!-- TODO: Square user icon for mobile -->
+        <button id="userbtn" class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#profile">
+            {{ '@' + profile['username'] }}
+        </button>
+    </div>
+</nav>
+<div class="modal fade light" id="profile">
+    <div class="modal-dialog profile-modal-dialog">
+        <div class="modal-content neo-box profile-modal light">
+            <div class="modal-body light">
+                <div class="profile-modal-name">
+                    Hello, {{ profile['name'] }}.
+                </div>
+                <div class="profile-modal-row profile-modal-username">
+                    {{ '@' + profile['username'] }}
+                </div>
                 <br>
-                <div class="forms-tagline">
-                    Don't let your friends steal your money, 
-                    <span class="tagline-sec">like we steal ideas.</span>
+                <div class="modal-footer">
+                    <form action="/logout">
+                        <button id="logoutbtn" class="btn btn-outline-danger" type="submit" formmethod="POST"> 
+                            LOG OUT
+                        </button>
+                    </form>
                 </div>
             </div>
-            <div class="col-xl-6 flex-col p-5 overflow-hidden">
-                {% block body_forms %}
-                {% endblock %}
-            </div>
         </div>
-    </section>
-</body>
+    </div>
+</div>
+{% block main_body %}
+{% endblock %}
 </html>
