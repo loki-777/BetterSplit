@@ -3,5 +3,4 @@ __pycache__/
 BetterSplit/
 groups.json
 profiles.json
-.vscode/settings.json
-profiles.json
+.vscode/
