@@ -1,4 +1,4 @@
-from actions import quick_pay, init_new_user, init_new_group, get_members, get_groups
+from actions import quick_pay, init_new_user, init_new_group, get_members, get_groups, join_group
 from flask import Flask, render_template, redirect, url_for, session, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from validators import validate_login, validate_signup, validate_quickpay
@@ -181,6 +181,36 @@ def groups(uuid):
     # TODO: The group landing page with current members, pay button and copy invite link
     return render_template(
         'groups.html',
+        profile = profile,
+        group = group
+    )
+
+@app.route('/join/<uuid>', methods = ['GET', 'POST'])
+def groups_join(uuid):
+    if 'user' not in session:
+        return redirect('/')
+    member_list = get_members(uuid)
+    if session['user'] in member_list:
+        return redirect('/groups/' + uuid)
+    if request.method == 'POST':
+        join_group(session['user'], uuid)
+        return redirect('/groups/' + uuid)
+    profile_query = User.query.filter_by(username = session['user']).first()
+    profile = {
+        'username' : profile_query.username,
+        'name' : profile_query.name,
+        'phone' : profile_query.phone,
+        'plus' : profile_query.plus,
+        'minus' : profile_query.minus,
+        'net' : profile_query.net
+    }
+    group_query = UserGroup.query.filter_by(uuid = uuid).first()
+    group = {
+        'name' : group_query.name,
+        'uuid' : uuid,
+    }
+    return render_template(
+        'join.html',
         profile = profile,
         group = group
     )

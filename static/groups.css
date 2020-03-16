@@ -13,7 +13,7 @@
 }
 
 #name {
-	max-width: 61vw;
+	max-width: 58vw;
 	white-space: nowrap;
 	overflow: hidden;
   	text-overflow: ellipsis;
@@ -40,6 +40,18 @@
 	align-items: flex-start;
 }
 
+#confirm-text {
+	font-size: calc(20px + 1vw);
+	padding: 20px;
+}
+
+#joinbtn {
+	font-weight: 700;
+	border: 1.5px solid #03B776;
+	padding: 8px;
+	width: 90%;
+	margin: 20px;
+}
 
 @media only screen and (orientation: portrait) {
 	#name {
