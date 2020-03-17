@@ -113,3 +113,11 @@ body::-webkit-scrollbar {
     font-weight: 700;
     color: #888888;
 }
+
+.subtitle-row {
+    margin-bottom: 8px;
+    padding-left: 5px;
+    max-height: 20px;
+    font-size: 16px;
+    font-weight: 700;
+}

@@ -25,13 +25,14 @@
 					<div id="members-table-container" class="flex-col width-100 height-100">
                         <table id="group-members">
                             <tbody class="width-100">
-								{% for member in group['member_list'] %}
+								{% for username, (name, due) in members.items() %}
 								<tr class="member-list">
 									<td class="member-name">
-										{{ member }}
+										{{ name }}
+										<span style="color: #AAA;">({{ username }})</span> 
 									</td>
 									<td class="member-due">
-										0.0
+										{{ due }}
 									</td>
 								</tr>
 								{% endfor %}

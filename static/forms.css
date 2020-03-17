@@ -105,6 +105,10 @@ input:focus, textarea:focus, select:focus{
     margin-top: -10px;
 }
 
+.error-nomar {
+    margin-top: 5px;
+}
+
 .error-fg {
     color: rgb(226, 32, 32);
 }
@@ -260,6 +264,14 @@ input:focus, textarea:focus, select:focus{
 
 .qpay-field {
     width: 98%;
+}
+
+.qpay-amount-container {
+    justify-content: flex-end;
+}
+
+.qpay-to-container {
+    justify-content: flex-end;
 }
 
 .divider {

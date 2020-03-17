@@ -1,6 +1,6 @@
-from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, validators, ValidationError, FloatField
 from wtforms.validators import InputRequired, DataRequired
+from flask_wtf import FlaskForm
 
 class LoginForm(FlaskForm):
     username = StringField('USERNAME', validators = [
@@ -32,7 +32,7 @@ class GroupForm(FlaskForm):
     ])
 
 class QuickPayForm(FlaskForm):
-    amount = FloatField('AMOUNT', validators = [
+    amount = StringField('AMOUNT', validators = [
         DataRequired()
     ])
     to = StringField('TO', validators = [

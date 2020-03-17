@@ -1,4 +1,3 @@
-from actions import quick_pay, init_new_user, init_new_group, get_members, get_groups, join_group
 from flask import Flask, render_template, redirect, url_for, session, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from validators import validate_login, validate_signup, validate_quickpay
@@ -6,6 +5,7 @@ from forms import LoginForm, SignupForm, QuickPayForm, GroupForm
 from models import db, User, Transactions, UserGroup
 from flask_sqlalchemy import SQLAlchemy
 from parsers import parse_dues
+from actions import *
 
 app = Flask(__name__)
 
@@ -26,7 +26,8 @@ def home():
     if request.method == 'POST':
         errors = validate_quickpay(
             form.amount.data,
-            form.to.data
+            form.to.data,
+            username
         )
         if not errors:
             quick_pay(
@@ -34,6 +35,8 @@ def home():
                 form.to.data,
                 username
             )
+            return redirect('/')
+
     profile_query = User.query.filter_by(username = username).first()
     profile = {
         'username' : profile_query.username,
@@ -178,11 +181,24 @@ def groups(uuid):
         'uuid' : uuid,
         'member_list' : member_list
     }
-    # TODO: The group landing page with current members, pay button and copy invite link
+    members = {}
+    for username in member_list:
+        name = User.query.filter_by(username = username).first().name
+        due = 0.0
+        transactions_by = Transactions.query.filter((Transactions.paid_by == username) & (Transactions.group == uuid))
+        transactions_to = Transactions.query.filter((Transactions.paid_to == username) & (Transactions.group == uuid))
+        if transactions_by:
+            for transaction in transactions_by:
+                due -= float(transaction.amount)
+        if transactions_to:
+            for transaction in transactions_to:
+                due += float(transaction.amount)
+        members[username] = (name, due)
     return render_template(
         'groups.html',
         profile = profile,
-        group = group
+        group = group,
+        members = members
     )
 
 @app.route('/join/<uuid>', methods = ['GET', 'POST'])
@@ -207,7 +223,7 @@ def groups_join(uuid):
     group_query = UserGroup.query.filter_by(uuid = uuid).first()
     group = {
         'name' : group_query.name,
-        'uuid' : uuid,
+        'uuid' : uuid
     }
     return render_template(
         'join.html',

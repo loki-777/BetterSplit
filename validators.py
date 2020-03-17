@@ -11,6 +11,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
+def is_number(n):
+    try:
+        float(n)
+    except ValueError:
+        return False
+    return True
+
 def validate_login(username, password):
     errors = {}
     existing_user = User.query.filter_by(username = username).first()
@@ -43,5 +50,20 @@ def validate_signup(name, username, password, phone):
             errors['phone'] = 'Phone number already in use!'
     return errors
 
-def validate_quickpay(amount, to):
-    pass
+def validate_quickpay(amount, to_user, from_user):
+    errors = {}
+    if not is_number(amount) or re.search('[a-zA-Z]', amount):
+        errors['amount'] = 'Amount must be a number!'
+    else:
+        amount = float(amount)
+        if amount < 0:
+            errors['amount'] = 'Amount can not be negative!'
+        if amount == 0:
+            errors['amount'] = 'Why would you do that?'
+    if to_user == from_user:
+        errors['to'] = 'You can\'t pay yourself!'
+    else:
+        existing_to = User.query.filter_by(username = to_user).first()
+        if not existing_to:
+            errors['to'] = 'Are you sure '+ to_user +' uses BetterSplit?'
+    return errors

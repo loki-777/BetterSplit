@@ -15,7 +15,7 @@
                     <div class="cell-divider"></div>
                     <div class="flex-col static-cell net">
                         {% if profile['net'] < 0 %}
-                            {{ '-' + profile['net'] | string }}
+                            {{ profile['net'] | string }}
                         {% else %}
                             {{ '+' + profile['net'] | string }}
                         {% endif %}
@@ -34,26 +34,34 @@
                     <div class="width-100 title-row overflow-hidden">
                         QUICK PAY
                     </div>
-                    <div id="qpay-card" class=" container-fluid flex-col width-100 height-100">
+                    <form id="qpay-card" class="container-fluid flex-col width-100 height-100">
                         <!-- TODO: Make amount container expand with text length -->
                         <!-- TODO: Persistent rupee icon on left -->
-                        <div class="flex-row qpay-amount-container">
+                        <div class="flex-col qpay-amount-container">
+                            <div class="width-100 subtitle-row overflow-hidden">
+                                HOW MUCH?
+                            </div>
                             {% if 'amount' in errors %}
                                 {{ form.amount(class='tfield-big neo-inset error-bg qpay-field', autocomplete='off')}}
+                                <div class="error-msg error-fg error-nomar"> {{ errors['amount'] }} </div>
                             {% else %}
                                 {{ form.amount(class='tfield-big neo-inset qpay-field', autocomplete='off')}}
                             {% endif %}
                         </div>
-                        <!-- TODO: Persistent '@' icon on left -->
-                        <div class="flex-row qpay-to-container">
+                        <!-- TODO: Persistent '@' icon on left -->  
+                        <div class="flex-col qpay-to-container">
+                            <div class="width-100 subtitle-row overflow-hidden">
+                                TO WHOM?
+                            </div>
                             {% if 'to' in errors %}
                                 {{ form.to(class='tfield-med neo-inset error-bg qpay-field', autocomplete='off')}}
+                                <div class="error-msg error-fg error-nomar"> {{ errors['to'] }} </div>
                             {% else %}
                                 {{ form.to(class='tfield-med neo-inset qpay-field', autocomplete='off')}}
                             {% endif %}
                         </div>
-                            <button type="button" class="btn btn-outline-dark formbtn qpaybtn"> PAY </button>
-                    </div>
+                            <button type="submit" class="btn btn-outline-dark formbtn qpaybtn" formmethod="POST"> PAY </button>
+                    </form>
                 </div>
             </div>
             <div class="col-xl-9 p-4 overflow-hidden">
